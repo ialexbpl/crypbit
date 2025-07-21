@@ -1,0 +1,68 @@
+/* Wyśrodkowanie widżetu portfela na środku strony */
+.wallet-section {
+  display: flex; /* Ustaw widżet w trybie elastycznym */
+  justify-content: center; /* Wyrównanie poziome do środka */
+  align-items: center; /* Wyrównanie pionowe do środka */
+  min-height: 100vh; /* Minimalna wysokość sekcji to wysokość ekranu */
+  background: transparent; /* Przezroczyste tło dla spójnego wyglądu */
+}
+
+/* Stylizacja kontenera widżetu portfela */
+.wallet-info {
+  background-color: #1a1a2e; /* Kolor tła widżetu */
+  border-radius: 15px; /* Zaokrąglone rogi kontenera */
+  padding: 30px 20px; /* Odstępy wewnętrzne */
+  width: 300px; /* Stała szerokość widżetu */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Cień dla głębi */
+  color: #fff; /* Biały tekst */
+  text-align: center; /* Wyśrodkowanie tekstu */
+  font-family: Arial, sans-serif; /* Czcionka dla widżetu */
+}
+
+/* Stylizacja nagłówka adresu portfela */
+.wallet-info .wallet-address {
+  font-size: 14px; /* Rozmiar czcionki adresu */
+  color: #c3c3c3; /* Szary kolor tekstu */
+  margin-bottom: 10px; /* Odstęp poniżej adresu */
+}
+
+/* Nagłówek sekcji salda */
+.wallet-info h2 {
+  font-size: 18px; /* Większy rozmiar czcionki dla nagłówka */
+  color: #fff; /* Biały tekst */
+  margin-bottom: 20px; /* Odstęp poniżej nagłówka */
+  font-weight: bold; /* Wyróżniony tekst */
+  text-transform: uppercase; /* Tekst wielkimi literami */
+}
+
+/* Stylizacja poszczególnych elementów salda */
+.wallet-info .balance-item {
+  display: flex; /* Ustaw elementy salda w linii */
+  justify-content: space-between; /* Wyrównanie po obu stronach */
+  margin: 10px 0; /* Odstępy między liniami salda */
+  font-size: 16px; /* Rozmiar czcionki */
+  color: #dcdcdc; /* Jasnoszary kolor tekstu */
+}
+
+/* Stylizacja sekcji przycisku "Connect Wallet" */
+.connect-wallet {
+  margin-top: 20px; /* Odstęp od góry */
+}
+
+.connect-btn {
+  background-color: #76c893; /* Zielony kolor tła */
+  color: #000; /* Czarny kolor tekstu */
+  border: none; /* Brak obramowania */
+  padding: 12px; /* Wewnętrzne odstępy przycisku */
+  border-radius: 8px; /* Zaokrąglone rogi przycisku */
+  width: 100%; /* Przyciski na pełną szerokość */
+  cursor: pointer; /* Ikona kursora przy najechaniu */
+  font-size: 16px; /* Rozmiar tekstu */
+  font-weight: bold; /* Wyróżniony tekst */
+  transition: background-color 0.3s ease; /* Efekt płynnej zmiany koloru */
+}
+
+/* Zmiana koloru przycisku po najechaniu */
+.connect-btn:hover {
+  background-color: #5aa779; /* Ciemniejszy zielony po najechaniu */
+}

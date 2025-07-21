@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Support - CRYPBIT</title>
+    <link rel="stylesheet" href="support.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Sekcja nagłówka z logo i menu hamburgerowym -->
+    <header class="site-header">
+      <div class="logo-container">
+        <img src="image-removebg-preview.png" alt="Logo" />
+      </div>
+
+      <!-- Menu hamburgerowe -->
+      <div class="hamburger-menu" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <!-- Mobilne menu nawigacyjne -->
+      <nav class="mobile-navigation" id="mobileNav">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="about.html" class="nav-link">News</a>
+          </li>
+          <li class="nav-item">
+            <a href="wallet.html" class="nav-link">Wallet</a>
+          </li>
+          <li class="nav-item">
+            <a href="support.html" class="nav-link">Support</a>
+          </li>
+          <li class="nav-item">
+            <a href="login.html" class="nav-link">Log out</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Sekcja formularza wsparcia -->
+    <section id="support" class="support-section">
+      <div class="form-container">
+        <h2>Potrzebujesz pomocy? Skontaktuj się z nami</h2>
+        <form id="supportForm" method="POST" action="submit_support.php">
+          <input type="text" name="name" placeholder="Twoje Imię" required />
+          <input type="email" name="email" placeholder="Twój Email" required />
+          <input type="text" name="subject" placeholder="Temat" required />
+          <textarea
+            name="message"
+            placeholder="Opisz swój problem"
+            required
+          ></textarea>
+          <input type="submit" value="Wyślij" />
+        </form>
+      </div>
+    </section>
+
+    <!-- Skrypt obsługujący menu hamburgerowe i formularz -->
+    <script>
+      $(document).ready(function () {
+        // Funkcjonalność menu hamburgerowego
+        const $hamburger = $("#hamburger");
+        const $mobileNav = $("#mobileNav");
+
+        // Przełączanie widoczności mobilnego menu nawigacyjnego
+        $hamburger.on("click", function () {
+          $mobileNav.toggleClass("active");
+        });
+
+        // Zamknięcie menu po kliknięciu w dowolny link
+        $mobileNav.find("a").on("click", function () {
+          $mobileNav.removeClass("active");
+        });
+
+        // Zamknięcie menu po kliknięciu poza jego obszar
+        $(document).on("click", function (event) {
+          if (!$(event.target).closest("#mobileNav, #hamburger").length) {
+            $mobileNav.removeClass("active");
+          }
+        });
+
+        // Obsługa formularza wsparcia - wyświetlenie popupu z danymi
+        $("#supportForm").on("submit", function (event) {
+          event.preventDefault(); // Zatrzymaj domyślną akcję formularza
+
+          // Pobierz dane formularza
+          const formData = {
+            name: $("input[name='name']").val(),
+            email: $("input[name='email']").val(),
+            subject: $("input[name='subject']").val(),
+            message: $("textarea[name='message']").val(),
+          };
+
+          // Utwórz popup z danymi formularza
+          const popupContent = `
+            <div id="popupOverlay" style="
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background-color: rgba(0, 0, 0, 0.5);
+              z-index: 999;
+            "></div>
+            <div id="popup" style="
+              position: fixed;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              background: white;
+              padding: 20px;
+              border-radius: 10px;
+              text-align: center;
+              z-index: 1000;
+              box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            ">
+              <h3>Potwierdzenie Wysłania</h3>
+              <p><strong>Imię:</strong> ${formData.name}</p>
+              <p><strong>Email:</strong> ${formData.email}</p>
+              <p><strong>Temat:</strong> ${formData.subject}</p>
+              <p><strong>Wiadomość:</strong> ${formData.message}</p>
+              <button id="closePopup" style="
+                background-color: red;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                margin-top: 10px;
+                border-radius: 5px;
+                cursor: pointer;
+              ">Zamknij</button>
+            </div>
+          `;
+
+          // Dodaj popup do dokumentu
+          $("body").append(popupContent);
+
+          // Zamknij popup i prześlij formularz po kliknięciu
+          $("#closePopup").on("click", function () {
+            $("#popupOverlay").remove();
+            $("#popup").remove();
+
+            // Wykonaj faktyczne wysłanie formularza
+            $("#supportForm")[0].submit();
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

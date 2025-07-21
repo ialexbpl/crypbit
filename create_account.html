@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - CRYPBIT</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="login-widget-container">
+        <h2 class="login-title">Create Account</h2>
+        <form id="createAccountForm" class="login-form">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required />
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required />
+
+            <button type="submit" class="submit-btn">Create Account</button>
+            <p id="create-error" class="error-message"></p>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("createAccountForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const formData = new FormData(this);
+
+            fetch("create_account.php", {
+                method: "POST",
+                body: formData,
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(`Account created successfully! Your wallet address: ${data.wallet_address}`);
+                        window.location.href = "login.html"; // Redirect to login page
+                    } else {
+                        document.getElementById("create-error").textContent = data.message;
+                        document.getElementById("create-error").style.color = "red";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    document.getElementById("create-error").textContent =
+                        "An error occurred. Please try again.";
+                    document.getElementById("create-error").style.color = "red";
+                });
+        });
+    </script>
+</body>
+</html>

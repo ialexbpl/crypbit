@@ -1,0 +1,97 @@
+/* Wyśrodkowanie zawartości sekcji wiadomości */
+.news-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 50px 0;
+}
+
+/* Kontener dla obrazu i tekstu wiadomości */
+.news-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.5); /* Półprzezroczyste tło */
+  border-radius: 15px;
+  backdrop-filter: blur(5px); /* Efekt rozmycia w tle */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Subtelny cień */
+}
+
+/* Stylizacja obrazu wiadomości */
+.news-image img {
+  max-width: 100%;
+  width: 500px; /* Dostosowanie szerokości */
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+/* Stylizacja tekstu wiadomości */
+.news-text {
+  color: #ddd;
+  font-size: 18px;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Stylizacja tytułu sekcji */
+.section-title {
+  font-size: 32px;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Stylizacja nawigacyjnych strzałek */
+.news-navigation {
+  display: flex;
+  justify-content: space-between;
+  width: 200px; /* Odległość między strzałkami */
+  margin-top: 20px;
+}
+
+.arrow {
+  cursor: pointer;
+  font-size: 24px; /* Wielkość dla lepszej widoczności */
+  color: #76c893; /* Kolor dopasowany do motywu */
+  transition: color 0.3s;
+}
+
+.arrow:hover {
+  color: #5ba67b; /* Ciemniejszy odcień na hover */
+}
+
+/* Styl responsywny dla mniejszych ekranów */
+@media (max-width: 768px) {
+  .news-container {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .news-image img {
+    width: 100%;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
+
+  .news-text {
+    font-size: 16px;
+  }
+
+  .news-navigation {
+    width: 150px;
+  }
+
+  .arrow {
+    font-size: 20px;
+  }
+}

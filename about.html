@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>News - CRYPBIT</title>
+    <!-- Ogólny globalny plik CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- Specyficzny plik CSS dla tej strony -->
+    <link rel="stylesheet" href="about.css" />
+    <!-- Dodanie jQuery do obsługi dynamicznych funkcji -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <!-- Sekcja nagłówka -->
+    <header class="site-header">
+      <div class="logo-container">
+        <img src="image-removebg-preview.png" alt="Logo" />
+      </div>
+
+      <!-- Menu hamburgerowe -->
+      <div class="hamburger-menu" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <!-- Mobilne menu nawigacyjne -->
+      <nav class="mobile-navigation" id="mobileNav">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="about.html" class="nav-link">News</a>
+          </li>
+          <li class="nav-item">
+            <a href="wallet.html" class="nav-link">Wallet</a>
+          </li>
+          <li class="nav-item">
+            <a href="support.html" class="nav-link">Support</a>
+          </li>
+          <li class="nav-item">
+            <a href="login.html" class="nav-link">Log out</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Sekcja wiadomości -->
+    <section id="news" class="news-section">
+      <h2 class="section-title">News</h2>
+      <div class="news-container">
+        <div class="news-image">
+          <img id="newsImage" src="news1.jpg" alt="Obraz wiadomości" />
+        </div>
+        <div class="news-text">
+          <p id="newsText">
+            Breaking: Crypto markets soar to new heights amid investor optimism.
+          </p>
+        </div>
+      </div>
+      <div class="news-navigation">
+        <span id="prevArrow" class="arrow">&#8592;</span>
+        <span id="nextArrow" class="arrow">&#8594;</span>
+      </div>
+    </section>
+
+    <!-- Sekcja JavaScriptu -->
+    <script>
+      $(document).ready(function () {
+        // Dane dynamiczne dla wiadomości
+        const newsData = [
+          {
+            image: "news1.jpg",
+            text: "🚨BREAKING: Kolejny ETF $XRP w drodze. Prawdopodobnie nic wielkiego...🚀#CryptoNews #XRP ",
+          },
+          {
+            image: "news2.jpg",
+            text: "🚨BREAKING: Blackrock #BITCOIN spot ETF jest w pełni zabezpieczony prawdziwym BTC! Nadal jesteś wcześnie! 🚀#CryptoNews ",
+          },
+          {
+            image: "news3.jpg",
+            text: "🚨BREAKING: Przewodniczący SEC USA, Gary Gensler, zrezygnuje! 🚀#CryptoNews ",
+          },
+        ];
+
+        let currentIndex = 0;
+
+        // Funkcja do aktualizacji treści wiadomości
+        function updateNews(index) {
+          $("#newsImage").attr("src", newsData[index].image);
+          $("#newsText").text(newsData[index].text);
+        }
+
+        // Obsługa kliknięć strzałek
+        $("#prevArrow").click(function () {
+          currentIndex = (currentIndex - 1 + newsData.length) % newsData.length;
+          updateNews(currentIndex);
+        });
+
+        $("#nextArrow").click(function () {
+          currentIndex = (currentIndex + 1) % newsData.length;
+          updateNews(currentIndex);
+        });
+
+        // Automatyczna zmiana wiadomości co 20 sekund
+        setInterval(function () {
+          currentIndex = (currentIndex + 1) % newsData.length;
+          updateNews(currentIndex);
+        }, 4000);
+
+        // Wczytanie początkowej wiadomości
+        updateNews(currentIndex);
+      });
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>

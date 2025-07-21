@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home - CRYPBIT</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="home.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+    <script src="ajax.js" defer></script>
+    <script src="script.js" defer></script>
+    
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header class="site-header">
+      <div class="logo-container">
+        <img src="image-removebg-preview.png" alt="Logo" />
+      </div>
+
+      <!-- Hamburger Menu -->
+      <div class="hamburger-menu" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <!-- Mobile Navigation Menu -->
+      <nav class="mobile-navigation" id="mobileNav">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="about.html" class="nav-link">News</a>
+          </li>
+          <li class="nav-item">
+            <a href="wallet.html" class="nav-link">Wallet</a>
+          </li>
+          <li class="nav-item">
+            <a href="support.html" class="nav-link">Support</a>
+          </li>
+          <li class="nav-item">
+            <a href="login.html" class="nav-link">Log out</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Trading Widget -->
+    <div class="trade-widget-container">
+      <div class="trade-section">
+        <h4>You're Selling</h4>
+        <div class="token-select">
+          <select class="crypto-select" id="selling-crypto">
+            <option value="USDC">USDC</option>
+            <option value="BTC">BTC</option>
+            <option value="ETH">ETH</option>
+            <option value="SOL">SOL</option>
+          </select>
+          <input type="number" value="0.00" class="token-input" />
+        </div>
+      </div>
+
+      <!-- Switch Arrow -->
+      <div class="trade-arrow">
+        <span>&#8645;</span>
+      </div>
+
+      <!-- Buying Section -->
+      <div class="trade-section">
+        <h4>You're Buying</h4>
+        <div class="token-select">
+          <select class="crypto-select" id="buying-crypto">
+            <option value="SOL">SOL</option>
+            <option value="BTC">BTC</option>
+            <option value="ETH">ETH</option>
+            <option value="USDC">USDC</option>
+          </select>
+          <input type="number" value="0.00" class="token-input" />
+        </div>
+      </div>
+
+      <!-- Connect Wallet Button -->
+      <div class="connect-wallet">
+        <button class="connect-btn" id="connectWalletBtn">Connect Wallet</button>
+      </div>
+    </div>
+
+    <div class="logout-container">
+      <a id="logoutButton" class="logout-link" href="#">Log out</a>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+      document.getElementById("connectWalletBtn").addEventListener("click", function () {
+        fetch("check_login_status.php")
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.loggedIn) {
+              alert("You are already logged in. Please proceed with your trade.");
+            } else {
+              window.location.href = "login.html";
+            }
+          })
+          .catch((error) => {
+            console.error("Error checking login status:", error);
+          });
+      });
+      function performSwap() {
+        const sellingCrypto = document.getElementById("selling-crypto").value;
+        const buyingCrypto = document.getElementById("buying-crypto").value;
+        const sellingAmount = parseFloat(document.querySelector(".token-input").value);
+
+        if (!sellingAmount || sellingAmount <= 0) {
+          alert("Please enter a valid amount.");
+          return;
+        }
+
+        fetch("perform_swap.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            selling_crypto: sellingCrypto,
+            buying_crypto: buyingCrypto,
+            selling_amount: sellingAmount,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              alert(data.message);
+              // Optionally update balances dynamically
+            } else {
+              alert(data.message || "Swap failed.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error performing swap:", error);
+            alert("An error occurred. Please try again.");
+          });
+      }
+
+    </script>
+  </body>
+</html>
