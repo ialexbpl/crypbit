@@ -1,1 +1,2 @@
 This was my first website i have done in 2024 it was a simple DEX (Decentralized exchange) for crypto currencies with CRUD for some reasoon it doesn't work and i had never time to debug it!
+At the time of writing it i didn't really understand the workflow between languages now that i have the knowledge it would of been much better however im happy of the outcome as it's been really my first try at it.
